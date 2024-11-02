@@ -1,0 +1,167 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    font-family: 'Press Start 2P', monospace;
+    background-color: #000000;
+    color: #00ff00;
+    image-rendering: pixelated;
+  }
+}
+
+@layer components {
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 12px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: rgba(255, 0, 255, 0.1);
+    border-radius: 6px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #ff00ff 0%, #00ffff 100%);
+    border-radius: 6px;
+    border: 2px solid rgba(255, 0, 255, 0.2);
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, #00ffff 0%, #ff00ff 100%);
+  }
+
+  .bg-scanlines {
+    background: repeating-linear-gradient(
+      0deg,
+      rgba(255, 0, 255, 0.1) 0px,
+      rgba(255, 0, 255, 0.1) 1px,
+      transparent 1px,
+      transparent 2px
+    );
+    pointer-events: none;
+  }
+
+  .bg-crt {
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(180deg, #120458 0%, #000000 100%);
+  }
+
+  .bg-crt::before {
+    content: " ";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: linear-gradient(
+      to bottom,
+      rgba(18, 16, 16, 0) 50%,
+      rgba(0, 0, 0, 0.25) 50%
+    );
+    background-size: 100% 4px;
+    z-index: 2;
+    pointer-events: none;
+    animation: flicker 0.15s infinite;
+  }
+
+  .bg-crt::after {
+    content: " ";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: rgba(18, 16, 16, 0.1);
+    opacity: 0;
+    z-index: 2;
+    pointer-events: none;
+    animation: flicker 0.15s infinite;
+  }
+
+  .pixel-corners {
+    clip-path: polygon(
+      0px 8px,
+      4px 8px,
+      4px 4px,
+      8px 4px,
+      8px 0px,
+      calc(100% - 8px) 0px,
+      calc(100% - 8px) 4px,
+      calc(100% - 4px) 4px,
+      calc(100% - 4px) 8px,
+      100% 8px,
+      100% calc(100% - 8px),
+      calc(100% - 4px) calc(100% - 8px),
+      calc(100% - 4px) calc(100% - 4px),
+      calc(100% - 8px) calc(100% - 4px),
+      calc(100% - 8px) 100%,
+      8px 100%,
+      8px calc(100% - 4px),
+      4px calc(100% - 4px),
+      4px calc(100% - 8px),
+      0px calc(100% - 8px)
+    );
+  }
+
+  .chrome-text {
+    color: white;
+    background: linear-gradient(
+      to bottom,
+      #ff00ff 0%,
+      #00ffff 50%,
+      #ff00ff 100%
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 0 2px rgba(255, 0, 255, 0.5));
+  }
+
+  .grid-bg {
+    background-image: linear-gradient(0deg, transparent 24%, 
+      rgba(255, 0, 255, .3) 25%, 
+      rgba(255, 0, 255, .3) 26%, 
+      transparent 27%, 
+      transparent 74%, 
+      rgba(255, 0, 255, .3) 75%, 
+      rgba(255, 0, 255, .3) 76%, 
+      transparent 77%),
+    linear-gradient(90deg, transparent 24%, 
+      rgba(255, 0, 255, .3) 25%, 
+      rgba(255, 0, 255, .3) 26%, 
+      transparent 27%, 
+      transparent 74%, 
+      rgba(255, 0, 255, .3) 75%, 
+      rgba(255, 0, 255, .3) 76%, 
+      transparent 77%);
+    background-size: 50px 50px;
+  }
+}
+
+@keyframes flicker {
+  0% { opacity: 0.9; }
+  50% { opacity: 0.95; }
+  100% { opacity: 0.9; }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+    text-shadow: 0 0 8px #ff00ff;
+  }
+  50% {
+    opacity: 0.8;
+    text-shadow: 0 0 15px #00ffff;
+  }
+}
+
+@keyframes rainbow {
+  0% { color: #ff00ff; }
+  25% { color: #00ffff; }
+  50% { color: #ff00ff; }
+  75% { color: #00ffff; }
+  100% { color: #ff00ff; }
+}
